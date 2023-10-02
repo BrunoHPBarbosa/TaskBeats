@@ -4,42 +4,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
 
 class TaskListAdapter(
     private val openTaskDetailView:(task:Task)->Unit
-
-) : RecyclerView.Adapter<TaskListViewHolder>() {
-
-    private var listTask:List<Task> = emptyList()
-
-fun submit(list: List<Task>){
-    listTask= list
-    notifyDataSetChanged()
-}
+) :androidx.recyclerview.widget.ListAdapter<Task,TaskListViewHolder>(TaskListAdapter){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
        val view: View = LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.item_task,parent, false)
-
     return TaskListViewHolder(view)
 
     }
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
-        val task= listTask[position]
+        val task= getItem(position)
         holder.bind(task, openTaskDetailView)
     }
-        // tamanho da minha lista
-        override fun getItemCount(): Int {
-            return listTask.size
 
-    }
+    companion object:DiffUtil.ItemCallback<Task>(){
 
+         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem == newItem
+         }
+
+         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+           return oldItem.title == newItem.title &&
+                   oldItem.description == newItem.description
+
+         }
+
+     }
 }
 
-class TaskListViewHolder(private val view:View
+class TaskListViewHolder(
+    private val view:View
 ): RecyclerView.ViewHolder(view){
 
     private val tvtitle = view.findViewById<TextView>(R.id.tv_task_title)
@@ -51,7 +52,8 @@ class TaskListViewHolder(private val view:View
     ) {
 
     tvtitle.text = task.title
-        tvDesc.text = task.description
+        tvDesc.text = "${task.id}-t${task.description}"
+
         view.setOnClickListener{
             openTaskDetailView.invoke(task)
         }
