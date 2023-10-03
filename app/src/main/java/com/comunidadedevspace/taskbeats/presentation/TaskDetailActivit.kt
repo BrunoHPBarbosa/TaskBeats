@@ -1,4 +1,4 @@
-package com.comunidadedevspace.taskbeats
+package com.comunidadedevspace.taskbeats.presentation
 
 import android.app.Activity
 import android.content.Context
@@ -11,6 +11,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.comunidadedevspace.taskbeats.R
+import com.comunidadedevspace.taskbeats.data.Task
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -55,9 +57,9 @@ class TaskDetailActivit : AppCompatActivity() {
 
             if (title.isNotEmpty() && desc.isNotEmpty()) {
                 if(task == null){
-                    addOrUpdateTask(0,title,desc,ActionType.CREATE)
+                    addOrUpdateTask(0,title,desc, ActionType.CREATE)
                 }else{
-                    addOrUpdateTask(task!!.id,title,desc,ActionType.UPDATE)
+                    addOrUpdateTask(task!!.id,title,desc, ActionType.UPDATE)
                 }
 
             } else {
@@ -93,7 +95,7 @@ class TaskDetailActivit : AppCompatActivity() {
         return when (item.itemId) {
             R.id.Delete_Task_Detail -> {
                 if (task != null) {
-                   returAction(task!!,ActionType.DELETE)
+                   returAction(task!!, ActionType.DELETE)
 
                 } else {
                     showMessage(btnDone, "item not found")
@@ -105,7 +107,7 @@ class TaskDetailActivit : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
             }
         }
-        private fun returAction(task:Task,actionType: ActionType) {
+        private fun returAction(task: Task, actionType: ActionType) {
             val intent = Intent()
                 .apply {
                     val taskAction = TaskAction(task, actionType.name)

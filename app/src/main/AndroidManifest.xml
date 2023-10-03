@@ -13,10 +13,10 @@
         android:theme="@style/Theme.TaskBeats"
         tools:targetApi="33">
         <activity
-            android:name=".TaskDetailActivit"
+            android:name=".presentation.TaskDetailActivit"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

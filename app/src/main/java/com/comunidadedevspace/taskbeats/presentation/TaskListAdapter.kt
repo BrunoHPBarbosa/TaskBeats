@@ -1,4 +1,4 @@
-package com.comunidadedevspace.taskbeats
+package com.comunidadedevspace.taskbeats.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.comunidadedevspace.taskbeats.R
+import com.comunidadedevspace.taskbeats.data.Task
 
 
 class TaskListAdapter(
-    private val openTaskDetailView:(task:Task)->Unit
-) :androidx.recyclerview.widget.ListAdapter<Task,TaskListViewHolder>(TaskListAdapter){
+    private val openTaskDetailView:(task: Task)->Unit
+) :androidx.recyclerview.widget.ListAdapter<Task, TaskListViewHolder>(TaskListAdapter){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
        val view: View = LayoutInflater
@@ -47,8 +49,8 @@ class TaskListViewHolder(
     private val tvDesc = view.findViewById<TextView>(R.id.tv_task_description)
 
     fun bind(
-        task:Task,
-        openTaskDetailView:(task:Task)->Unit
+        task: Task,
+        openTaskDetailView:(task: Task)->Unit
     ) {
 
     tvtitle.text = task.title

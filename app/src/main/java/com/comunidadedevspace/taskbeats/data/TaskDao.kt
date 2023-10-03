@@ -1,4 +1,4 @@
-package com.comunidadedevspace.taskbeats
+package com.comunidadedevspace.taskbeats.data
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,13 +10,13 @@ import androidx.room.Update
 interface taskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE )
-    fun insert(task:Task)
+    fun insert(task: Task)
 
     @Query("Select * from task")
     fun getAll(): List<Task>
 
     @Update(onConflict = OnConflictStrategy.REPLACE )
-    fun update(task:Task)
+    fun update(task: Task)
 
     @Query( "DELETE from task")
     fun deleteAll()
