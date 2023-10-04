@@ -1,5 +1,6 @@
 package com.comunidadedevspace.taskbeats.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,11 +10,11 @@ import androidx.room.Update
 @Dao
 interface taskDao {
 
+    @Query("Select * from task")
+    fun getAll():  LiveData<List<Task>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE )
     fun insert(task: Task)
-
-    @Query("Select * from task")
-    fun getAll(): List<Task>
 
     @Update(onConflict = OnConflictStrategy.REPLACE )
     fun update(task: Task)
